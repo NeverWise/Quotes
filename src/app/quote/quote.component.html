@@ -1,0 +1,12 @@
+<mat-card *ngIf="quote" (dblclick)="edit.emit(quote)">
+  <p>{{ quote.text }}</p>
+  <em>{{ quote.author }}</em>
+  <!-- mat-button -->
+  <button (click)="copy()"
+          mat-icon-button
+          matTooltip="Copy quote"
+          matTooltipShowDelay="750"
+          aria-label="Button to copy quote">
+    <mat-icon>content_copy</mat-icon>
+  </button>
+</mat-card>

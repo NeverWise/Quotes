@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <mat-icon>library_books</mat-icon>
+  <!--mat-icon>format_quote</mat-icon-->
+  <span class="title">{{ title }}</span>
+  <span class="spacer"></span>
+  <button (click)="newQuote()"
+          mat-icon-button
+          matTooltip="Add new quote"
+          matTooltipShowDelay="750"
+          aria-label="Button to add a new quote">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <div class="empty" *ngIf="(quotes | async)?.length === 0">
+    <mat-icon>sentiment_dissatisfied</mat-icon>
+    <p>Empty list</p>
+  </div>
+  <quote (edit)="editQuote($event)" *ngFor="let quote of quotes | async" [quote]="quote"></quote>
+</div>
