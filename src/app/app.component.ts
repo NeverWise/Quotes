@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Quote } from '../model/quote';
 import { QuoteDialogComponent, QuoteDialogResult } from './quote-dialog/quote-dialog.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+
+import { DbService } from '../db/db.service';
+import { Quote } from '../db/quote';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +12,14 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'Quotes';
-  collection = this.store.collection('quotes');
-  quotes = this.collection.valueChanges({ idField: 'id' }) as Observable<Quote[]>;
+  quotes = this.db.getQuotes();
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) {}
+  constructor(private dialog: MatDialog, private db: DbService) {}
 
   newQuote(): void {
     const dialogRef = this.dialog.open(QuoteDialogComponent, {
-      width: '270px',
+      panelClass: 'responsive-dialog',
+      //height: '100%',
       data: {
         quote: {},
       },
@@ -30,13 +30,14 @@ export class AppComponent {
         if (!result) {
           return;
         }
-        this.collection.add(result.quote);
+        this.db.createQuote(result.quote);
       });
   }
 
   editQuote(quote: Quote): void {
     const dialogRef = this.dialog.open(QuoteDialogComponent, {
-      width: '270px',
+      panelClass: 'responsive-dialog',
+      //height: '100%',
       data: {
         quote,
         enableDelete: true,
@@ -47,9 +48,9 @@ export class AppComponent {
         return;
       }
       if (result.delete) {
-        this.collection.doc(quote.id).delete();
+        this.db.deleteQuote(quote.id!);
       } else {
-        this.collection.doc(quote.id).update(quote);
+        this.db.updateQuote(quote);
       }
     });
   }

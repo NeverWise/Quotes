@@ -5,3 +5,15 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eee
 }
+
+.responsive-dialog {
+  width: 100%;
+}
+
+div[mat-dialog-content].quote {
+  display: flex;
+  flex-direction: column;
+}
+/*
+div[mat-dialog-content].quote mat-form-field:first-child,
+div[mat-dialog-content].quote mat-form-field:first-child *:first-child * { height: 100%; }*/

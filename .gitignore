@@ -42,5 +42,6 @@ testem.log
 Thumbs.db
 
 # My ignore
-src/environments
+src/environments/environment.ts
+src/environments/environment.prod.ts
 .vscode
