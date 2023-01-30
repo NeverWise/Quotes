@@ -1,12 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        MatDialogModule,
+        MatToolbarModule,
+        MatIconModule,
+        AngularFireModule.initializeApp(environment.firebase),
+      ],
+      providers: [
+        AngularFirestore,
+      ]
     }).compileComponents();
   });
 
@@ -26,6 +43,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Quotes app is running!');
+    expect(compiled.querySelector('mat-toolbar span.title')?.textContent).toContain('Quotes');
   });
 });

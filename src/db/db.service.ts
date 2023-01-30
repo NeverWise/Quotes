@@ -19,14 +19,18 @@ export class DbService {
     return this.quoteCollection.doc(id);
   }
 
-  createQuote(quote: Quote) {
-    return this.quoteCollection.add(quote);
+  addQuote(quote: Quote) {
+    quote.id = undefined;
+    return this.setQuote(quote);
   }
 
-  updateQuote(quote: Quote) {
-    return quote.id == null ?
-      this.quoteCollection.add(quote) :
-      this.getQuote(quote.id).update(quote);
+  setQuote(quote: Quote) {
+    quote.editDate = new Date();
+    if (quote.id == null) {
+      quote.createDate = quote.editDate;
+      return this.quoteCollection.add(quote);
+    }
+    else return this.getQuote(quote.id).update(quote);
   }
 
   deleteQuote(id: string) {

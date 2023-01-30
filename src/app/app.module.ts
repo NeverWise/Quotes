@@ -14,7 +14,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { QuoteComponent } from './quote/quote.component';
+import { DeleteQuoteDialog, EllipsisPipe, QuoteComponent } from './quote/quote.component';
 import { QuoteDialogComponent } from './quote-dialog/quote-dialog.component';
 
 import { environment } from '../environments/environment';
@@ -26,7 +26,9 @@ import { DbService } from '../db/db.service';
   declarations: [
     AppComponent,
     QuoteComponent,
-    QuoteDialogComponent
+    DeleteQuoteDialog,
+    QuoteDialogComponent,
+    EllipsisPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { DbService } from '../db/db.service';
   ],
   providers: [
     DbService,
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'} }
   ],
   bootstrap: [AppComponent]
 })

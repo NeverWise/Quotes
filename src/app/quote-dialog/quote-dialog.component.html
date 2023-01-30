@@ -1,6 +1,6 @@
-<div mat-dialog-title>Edit quote</div>
+<h1 mat-dialog-title>{{ title }}</h1>
 <form [formGroup]="quoteForm" (ngSubmit)="confirm()">
-  <div mat-dialog-content class="quote">
+  <mat-dialog-content class="quote">
     <mat-form-field class="h-100-children">
       <mat-label>quote</mat-label>
       <textarea matInput formControlName="text" name="text" cdkFocusInitial></textarea>
@@ -11,18 +11,10 @@
       <mat-label>Author</mat-label>
       <input matInput formControlName="author" name="author" placeholder="Anonimus" />
     </mat-form-field>
-  </div>
+  </mat-dialog-content>
     
-  <div mat-dialog-actions>
-    <button mat-stroked-button color="primary" [disabled]="!quoteForm.valid">OK</button>
-    <button mat-stroked-button (click)="cancel()">Cancel</button>
-    <!--button
-      *ngIf="data.enableDelete"
-      mat-fab
-      color="primary"
-      aria-label="Delete"
-      [mat-dialog-close]="{ quote: data.quote, delete: true }">
-      <mat-icon>delete</mat-icon>
-    </button-->
-  </div>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!quoteForm.valid">OK</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
 </form>

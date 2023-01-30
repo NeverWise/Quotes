@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { QuoteDialogComponent, QuoteDialogResult } from './quote-dialog/quote-dialog.component';
+import { QuoteDialogComponent } from './quote-dialog/quote-dialog.component';
 
 import { DbService } from '../db/db.service';
-import { Quote } from '../db/quote';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -17,42 +16,6 @@ export class AppComponent {
   constructor(private dialog: MatDialog, private db: DbService) {}
 
   newQuote(): void {
-    const dialogRef = this.dialog.open(QuoteDialogComponent, {
-      panelClass: 'responsive-dialog',
-      //height: '100%',
-      data: {
-        quote: {},
-      },
-    });
-    dialogRef
-      .afterClosed()
-      .subscribe((result: QuoteDialogResult | undefined) => {
-        if (!result) {
-          return;
-        }
-        this.db.createQuote(result.quote);
-      });
+    this.dialog.open(QuoteDialogComponent, { data: {} });
   }
-
-  editQuote(quote: Quote): void {
-    const dialogRef = this.dialog.open(QuoteDialogComponent, {
-      panelClass: 'responsive-dialog',
-      //height: '100%',
-      data: {
-        quote,
-        enableDelete: true,
-      },
-    });
-    dialogRef.afterClosed().subscribe((result: QuoteDialogResult | undefined) => {
-      if (!result) {
-        return;
-      }
-      if (result.delete) {
-        this.db.deleteQuote(quote.id!);
-      } else {
-        this.db.updateQuote(quote);
-      }
-    });
-  }
-
 }

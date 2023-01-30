@@ -1,0 +1,21 @@
+
+mat-dialog-content.quote {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-dialog-content {
+  padding-bottom: 0 !important;
+}
+
+/* 428px and up */
+@media (min-height: 428px) {
+  mat-dialog-content.quote textarea {
+    height: 108px;
+  }
+}
+
+mat-dialog-actions {
+  justify-content: flex-end;
+  padding: 0 24px 24px;
+}

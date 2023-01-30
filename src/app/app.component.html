@@ -17,5 +17,5 @@
     <mat-icon>sentiment_dissatisfied</mat-icon>
     <p>Empty list</p>
   </div>
-  <quote (edit)="editQuote($event)" *ngFor="let quote of quotes | async" [quote]="quote"></quote>
+  <quote *ngFor="let quote of quotes | async" [quote]="quote"></quote>
 </div>

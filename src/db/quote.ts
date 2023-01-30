@@ -3,4 +3,5 @@ export interface Quote {
   text: string;
   author: string;
   createDate: Date;
+  editDate: Date;
 }

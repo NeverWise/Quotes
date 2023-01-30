@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Delete quote</h1>
+
+<mat-dialog-content>
+  Are you sure you want to delete the quote <strong>"{{ data.text | ellipsis:100 }}"</strong> of <strong>"{{ data.author | ellipsis:25 }}"</strong>?
+</mat-dialog-content>
+  
+<mat-dialog-actions>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>
