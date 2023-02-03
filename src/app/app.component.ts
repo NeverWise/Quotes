@@ -12,10 +12,19 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent {
   title = 'Quotes';
   quotes = this.db.getQuotes();
+  showSearch = false;
 
   constructor(private dialog: MatDialog, private db: DbService) {}
 
   newQuote(): void {
     this.dialog.open(QuoteDialogComponent, { data: {} });
   }
+
+  search(): void {
+    this.showSearch = !this.showSearch;
+  }
+
+  onKeyEscape(): void {
+    this.showSearch = false;
+ }
 }

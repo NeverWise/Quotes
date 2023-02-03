@@ -22,7 +22,7 @@ describe('AppComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
       ],
       providers: [
-        AngularFirestore,
+        AngularFirestore
       ]
     }).compileComponents();
   });

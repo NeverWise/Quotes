@@ -1,4 +1,4 @@
-import { Component, Input, Inject, Pipe, PipeTransform } from '@angular/core';
+import { Component, Input, Inject, Pipe, PipeTransform, OnChanges, SimpleChanges } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { QuoteDialogComponent } from '../quote-dialog/quote-dialog.component';
@@ -11,34 +11,40 @@ import { Quote } from '../../db/quote';
   templateUrl: './quote.component.html',
   styleUrls: ['./quote.component.css']
 })
-export class QuoteComponent {
+export class QuoteComponent implements OnChanges {
   @Input() quote: Quote | null = null;
+  vmQuote: Partial<Quote> = { };
 
   constructor(private dialog: MatDialog, private db: DbService) {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.vmQuote.text = changes['quote'].currentValue.text;
+    this.vmQuote.author = changes['quote'].currentValue.author || 'Anonimus';
+  }
+
   copy(tooltip: MatTooltip, actionTooltip: MatTooltip): void {
     tooltip.hide();
-    navigator.clipboard.writeText(`${this.quote?.text}\n(${this.quote?.author})`);
+    navigator.clipboard.writeText(`${this.vmQuote?.text}\n(${this.vmQuote?.author})`);
     actionTooltip.show();
     setTimeout(() => {
       actionTooltip.hide();
     }, 1000);
   }
 
-  edit(quote: Quote): void {
-    this.dialog.open(QuoteDialogComponent, { data: quote });
+  edit(): void {
+    this.dialog.open(QuoteDialogComponent, { data: this.quote });
   }
 
-  delete(quote: Quote): void {
-    if (quote.id != null) {
+  delete(): void {
+    if (this.quote?.id != null) {
       const dialogRef = this.dialog.open(DeleteQuoteDialog, {
         data: {
-          text: quote.text,
-          author: quote.author
+          text: this.vmQuote.text,
+          author: this.vmQuote.author
         },
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result) this.db.deleteQuote(quote.id!);
+        if (result) this.db.deleteQuote(this.quote?.id!);
       });
     }
   }
@@ -51,7 +57,7 @@ export class QuoteComponent {
 export class DeleteQuoteDialog {
   constructor(
     public dialogRef: MatDialogRef<QuoteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DeleteQuoteDialogData
+    @Inject(MAT_DIALOG_DATA) public data: Quote
   ) {
     this.dialogRef.addPanelClass('responsive-dialog');
   }
@@ -67,9 +73,4 @@ export class EllipsisPipe implements PipeTransform {
     }
     return htmlStripped;
   }
-}
-
-interface DeleteQuoteDialogData {
-  text: string,
-  author: string
 }

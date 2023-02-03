@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { A11yModule } from '@angular/cdk/a11y'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -43,7 +44,8 @@ import { DbService } from '../db/db.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    A11yModule
   ],
   providers: [
     DbService,

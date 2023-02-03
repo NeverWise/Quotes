@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ title }}</h1>
 <form [formGroup]="quoteForm" (ngSubmit)="confirm()">
-  <mat-dialog-content class="quote">
+  <mat-dialog-content>
     <mat-form-field class="h-100-children">
       <mat-label>quote</mat-label>
       <textarea matInput formControlName="text" name="text" cdkFocusInitial></textarea>

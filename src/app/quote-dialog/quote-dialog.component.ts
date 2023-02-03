@@ -19,8 +19,8 @@ export class QuoteDialogComponent {
   });
 
   constructor(
-    public dialogRef: MatDialogRef<QuoteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Quote,
+    private dialogRef: MatDialogRef<QuoteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: Quote,
     private db: DbService
   ) {
     this.dialogRef.addPanelClass('responsive-dialog');

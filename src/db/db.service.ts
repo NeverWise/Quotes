@@ -7,7 +7,7 @@ import { Quote } from './quote';
   providedIn: 'root'
 })
 export class DbService {
-  quoteCollection = this.db.collection('quotes');
+  quoteCollection = this.db.collection('quotes', ref => ref.orderBy('createDate', 'desc'));
 
   constructor(private db: AngularFirestore) { }
 

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuoteDialogComponent } from './quote-dialog.component';
 
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../../environments/environment';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -20,11 +24,13 @@ describe('QuoteDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        AngularFireModule.initializeApp(environment.firebase)
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { enableDelete: false, quote: { text: '' } } }
+        { provide: MatDialogRef, useValue: { addPanelClass: (val: string) => val} },
+        { provide: MAT_DIALOG_DATA, useValue: { } },
+        AngularFirestore
       ]
     })
     .compileComponents();
