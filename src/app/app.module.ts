@@ -11,11 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { A11yModule } from '@angular/cdk/a11y'
+import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { DeleteQuoteDialog, EllipsisPipe, QuoteComponent } from './quote/quote.component';
+import { AppComponent, DeleteQuoteDialog, EllipsisPipe, SuggestQuoteDialog } from './app.component';
+import { QuoteComponent } from './quote/quote.component';
 import { QuoteDialogComponent } from './quote-dialog/quote-dialog.component';
 
 import { environment } from '../environments/environment';
@@ -29,7 +30,8 @@ import { DbService } from '../db/db.service';
     QuoteComponent,
     DeleteQuoteDialog,
     QuoteDialogComponent,
-    EllipsisPipe
+    EllipsisPipe,
+    SuggestQuoteDialog
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { DbService } from '../db/db.service';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    A11yModule
+    A11yModule, // Set focus to the input search when it appear.
+    HttpClientModule
   ],
   providers: [
     DbService,

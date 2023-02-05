@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -20,6 +21,7 @@ describe('AppComponent', () => {
         MatToolbarModule,
         MatIconModule,
         AngularFireModule.initializeApp(environment.firebase),
+        HttpClientModule
       ],
       providers: [
         AngularFirestore

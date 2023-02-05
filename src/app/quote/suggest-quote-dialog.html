@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Quote of the day</h1>
+
+<mat-dialog-content>
+  <quote [quote]="data"></quote>
+</mat-dialog-content>
+  
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Add to quotes</button>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>

@@ -23,6 +23,7 @@ mat-toolbar > input:focus-visible {
   outline: none;
 }
 
+/* Body */
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -30,21 +31,51 @@ mat-toolbar > input:focus-visible {
   padding-top: 84px;
 }
 
-.container > quote {
+.container > mat-card {
   width: 400px;
 }
 
-.container > .empty {
+.container > .msg {
   padding-top: 10px;
   opacity: 0.2;
   text-align: center;
 }
 
-.container > .empty > mat-icon {
+.container > .msg > mat-icon {
   transform: scale(4);
   margin-top: 25px;
 }
 
-.container > .empty > p {
+.container > .msg > p {
   font-size: 2em;
+}
+
+/* Quote */
+mat-card {
+  margin: 0 10px 20px;
+  box-shadow: 0 3px 5px -1px #0003,0 6px 10px #00000024,0 1px 18px #0000001f;
+}
+
+mat-card > quote {
+  padding: 0 16px 16px;
+  height: 100%;
+}
+
+mat-card .actions { position: relative; }
+
+mat-card .actions .edit {
+  position: absolute;
+  inset-inline-end: 48px;
+}
+
+mat-card .actions .copy {
+  position: absolute;
+  inset-inline-end: 0;
+}
+
+mat-card .actions .copied-tooltip {
+  width: 48px;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
 }
