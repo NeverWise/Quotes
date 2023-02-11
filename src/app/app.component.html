@@ -2,14 +2,14 @@
   <mat-icon *ngIf="!showSearch">library_books</mat-icon>
   <span *ngIf="!showSearch" class="title">{{ title }}</span>
   <span *ngIf="!showSearch" class="spacer"></span>
-  <!--button *ngIf="!showSearch"
-          (click)="search()"
+  <button *ngIf="!showSearch"
+          (click)="toggleSearch()"
           mat-icon-button
           matTooltip="Find quotes"
           matTooltipShowDelay="750"
           aria-label="Button to find quotes">
     <mat-icon>search</mat-icon>
-  </button-->
+  </button>
   <button *ngIf="!showSearch"
           (click)="newQuote()"
           mat-icon-button
@@ -18,12 +18,14 @@
           aria-label="Button to add a new quote">
     <mat-icon>add</mat-icon>
   </button>
-  <input *ngIf="showSearch" type="text" placeholder="Search"
+  <input *ngIf="showSearch" type="text" placeholder="Type to start search"
         [cdkTrapFocusAutoCapture]="showSearch"
         [cdkTrapFocus]="showSearch"
-        (keyup.escape)="onKeyEscape()">
+        (keyup.escape)="onKeyEscape()"
+        [(ngModel)]="search"
+        (ngModelChange)="debounceSearch.next($event)">
   <button *ngIf="showSearch"
-          (click)="search()"
+          (click)="toggleSearch()"
           mat-icon-button
           matTooltip="Close search"
           matTooltipShowDelay="750"
@@ -33,14 +35,14 @@
 </mat-toolbar>
 
 <div class="container">
-  <div class="msg" *ngIf="(quotes | async)?.length === 0">
+  <div class="msg" *ngIf="(quotes | async)?.length === 0 && !showSearch">
     <mat-icon>sentiment_dissatisfied</mat-icon>
     <p>No quotes inserted</p>
   </div>
-  <!--div class="msg" *ngIf="(quotes | async)?.length === 0">
+  <div class="msg" *ngIf="(quotes | async)?.length === 0 && showSearch">
     <mat-icon>sentiment_dissatisfied</mat-icon>
     <p>No quotes found</p>
-  </div-->
+  </div>
   <mat-card *ngFor="let quote of quotes | async">
     <quote [quote]="quote" #qIns></quote>
     <div class="actions">
@@ -52,7 +54,7 @@
               aria-label="Button to delete quote">
         <mat-icon>delete</mat-icon>
       </button>
-      <button (click)="edit(quote)"
+      <button (click)="edit(quote, qIns)"
               mat-icon-button
               matTooltip="Edit quote"
               matTooltipShowDelay="750"
