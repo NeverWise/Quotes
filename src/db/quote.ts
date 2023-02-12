@@ -10,11 +10,9 @@ export interface IQuote {
 export class Quote {
 
   private _quote: Partial<IQuote>;
-  private _isEdit: boolean;
 
-  constructor(quote: Partial<IQuote>, isEdit: boolean = false) {
+  constructor(quote: Partial<IQuote>) {
     this._quote = quote;
-    this._isEdit = isEdit;
     this.setKeywords();
   }
 
@@ -33,15 +31,12 @@ export class Quote {
     this.setKeywords();
   }
   get author() {
-    return this._isEdit ? this._quote.author || '' : this.getAuthor();
-  }
-  private getAuthor(){
     return this._quote.author || 'Anonimus';
   }
 
   // Format keywords.
   private setKeywords() {
-    this._quote.keywords = [ ...new Set([ ...this.buildKeywords(this.text), ...this.buildKeywords(this.getAuthor()) ]) ];
+    this._quote.keywords = [ ...new Set([ ...this.buildKeywords(this.text), ...this.buildKeywords(this.author) ]) ];
   }
 
   private buildKeywords(text: string) {

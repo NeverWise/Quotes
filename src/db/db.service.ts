@@ -13,9 +13,9 @@ export class DbService {
 
   private getQuoteCollection(search: string|null) {
     return this.db.collection('quotes', ref => {
-      let query: firebase.default.firestore.Query = ref;
-      if (search) { query = query.where('keywords', 'array-contains-any', search.toLowerCase().split(' ')) };
-      return query.orderBy('createDate', 'desc');
+      let query = ref.orderBy('createDate', 'desc');
+      if (search) query = query.where('keywords', 'array-contains-any', search.toLowerCase().split(' '));
+      return query;
     });
   }
 

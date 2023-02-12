@@ -45,6 +45,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('mat-toolbar span.title')?.textContent).toContain('Quotes');
+    expect(compiled.querySelector('mat-toolbar span.title')?.textContent).toEqual('Quotes');
   });
 });

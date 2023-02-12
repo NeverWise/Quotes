@@ -22,10 +22,10 @@ export class QuoteDialogComponent {
     private db: DbService
   ) {
     this.dialogRef.addPanelClass('responsive-dialog');
-    this.quote = new Quote(this.data, true);
+    this.quote = new Quote(this.data);
     this.quoteForm = new FormGroup({
-      text: new FormControl(this.quote.text, [Validators.required]),
-      author: new FormControl(this.quote.author)
+      text: new FormControl(this.data.text, [Validators.required]),
+      author: new FormControl(this.data.author)
     });
   }
 
